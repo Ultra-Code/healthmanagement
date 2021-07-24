@@ -1,3 +1,8 @@
+# Vue Vite
+.DS_Store
+dist-ssr
+*.local
+
 # Logs
 logs
 *.log
