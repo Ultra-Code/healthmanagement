@@ -11,5 +11,5 @@
     "skipLibCheck": true,
     "lib": ["esnext", "dom"],
   },
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"]
+  "include": ["ui/**/*.ts", "ui/**/*.d.ts", "ui/**/*.tsx", "ui/**/*.vue"]
 }
