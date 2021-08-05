@@ -7,8 +7,12 @@ import icons, { ViteIconsResolver } from 'vite-plugin-icons'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-    plugins: [vue(), pages(), layout(), icons(),
-    components({ customComponentResolvers: [HeadlessUiResolver(), ViteIconsResolver()] })],
+    plugins: [vue(), pages({ pagesDir: "ui/pages" }),
+    layout({ layoutsDir: "ui/layouts" }), icons(),
+    components({
+        dirs: "ui/components",
+        customComponentResolvers: [HeadlessUiResolver(), ViteIconsResolver()]
+    })],
     server: {
         fs: {
             // Allow serving files from one level up to the project root
