@@ -1,4 +1,4 @@
-{ pkgs ? import <unstable> {} }:
+{ pkgs ? import <nixpkgs> {} }:
 pkgs.mkShell {
   nativeBuildInputs = with pkgs; [
     cmake
