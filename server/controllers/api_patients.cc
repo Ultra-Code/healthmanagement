@@ -8,48 +8,73 @@
 #include "api_patients.h"
 #include <string>
 
-using namespace api;
+namespace api
+{
 
-void patients::getOne(const HttpRequestPtr &req,
+  void
+  patients::getOne(const HttpRequestPtr &req,
+                   std::function<void(const HttpResponsePtr &)> &&callback,
+                   std::string &&id)
+  {
+    LOG_DEBUG << "User " << id << " get his information";
+
+    // Verify the validity of the token, etc.
+    // Read the database or cache to get user information
+    auto ret = Json::Value();
+    ret["result"] = "ok";
+    ret["user_name"] = "Jack";
+    ret["user_id"] = id;
+    ret["gender"] = 1;
+    auto resp = HttpResponse::newHttpJsonResponse(ret);
+    callback(resp);
+  }
+
+  void
+  patients::get(const HttpRequestPtr &req,
+                std::function<void(const HttpResponsePtr &)> &&callback)
+  {
+  }
+  void
+  patients::create(const HttpRequestPtr &req,
+                   std::function<void(const HttpResponsePtr &)> &&callback)
+  {
+  }
+  void
+  patients::updateOne(const HttpRequestPtr &req,
                       std::function<void(const HttpResponsePtr &)> &&callback,
                       std::string &&id)
-{
-    LOG_DEBUG<<"User "<<id<<" get his information";
+  {
+  }
 
-    //Verify the validity of the token, etc.
-    //Read the database or cache to get user information
-    auto ret=Json::Value ();
-    ret["result"]="ok";
-    ret["user_name"]="Jack";
-    ret["user_id"]=id;
-    ret["gender"]=1;
-    auto resp=HttpResponse::newHttpJsonResponse(ret);
+  /*
+  void patients::update(const HttpRequestPtr &req,
+                        std::function<void(const HttpResponsePtr &)>
+  &&callback)
+  {
+
+  }*/
+
+  void
+  patients::deleteOne(const HttpRequestPtr &req,
+                      std::function<void(const HttpResponsePtr &)> &&callback,
+                      std::string &&id)
+  {
+  }
+
+  auto
+  patients::login(
+      HttpRequestPtr const &req,
+      std::function<auto(HttpResponsePtr const &)->void> &&callback,
+      std::string const &email, std::string const &password) -> void
+  {
+    LOG_DEBUG << "User " << password << " login";
+    // Authentication algorithm, read database, verify identity, etc...
+    //...
+    Json::Value ret;
+    ret["result"] = "ok";
+    ret["token"] = drogon::utils::getUuid();
+    ret["email"] = email;
+    auto resp = HttpResponse::newHttpJsonResponse(ret);
     callback(resp);
-}
-
-void patients::get(const HttpRequestPtr &req,
-                   std::function<void(const HttpResponsePtr &)> &&callback)
-{
-}
-void patients::create(const HttpRequestPtr &req,
-                      std::function<void(const HttpResponsePtr &)> &&callback)
-{
-}
-void patients::updateOne(const HttpRequestPtr &req,
-                         std::function<void(const HttpResponsePtr &)> &&callback,
-                         std::string &&id)
-{
-}
-
-/*
-void patients::update(const HttpRequestPtr &req,
-                      std::function<void(const HttpResponsePtr &)> &&callback)
-{
-
-}*/
-
-void patients::deleteOne(const HttpRequestPtr &req,
-                         std::function<void(const HttpResponsePtr &)> &&callback,
-                         std::string &&id)
-{
-}
+  }
+} // namespace api

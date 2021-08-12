@@ -8,42 +8,55 @@
 #pragma once
 
 #include <drogon/HttpController.h>
-using namespace drogon;
-namespace api 
+namespace api
 {
-/**
- * @brief this class is created by the drogon_ctl command (drogon_ctl create controller -r api::patients).
- * this class is a restful API controller.
- */
-class patients: public drogon::HttpController<patients>
-{
+  using namespace drogon;
+  /**
+   * @brief this class is created by the drogon_ctl command (drogon_ctl create
+   * controller -r api::patients). this class is a restful API controller.
+   */
+  class patients : public drogon::HttpController<patients>
+  {
   public:
     METHOD_LIST_BEGIN
     // use METHOD_ADD to add your custom processing function here;
-    METHOD_ADD(patients::getOne,"/{1}",Get,Options);
-    METHOD_ADD(patients::get,"",Get,Options);
-    METHOD_ADD(patients::create,"",Post,Options);
-    METHOD_ADD(patients::updateOne,"/{1}",Put,Options);
-    //METHOD_ADD(patients::update,"",Put,Options);
-    METHOD_ADD(patients::deleteOne,"/{1}",Delete,Options);
+    METHOD_ADD(patients::login, "/login?email={1}&password={2}", Post,Options);
+    METHOD_ADD(patients::getOne, "/{1}", Get, Options);
+    METHOD_ADD(patients::get, "", Get, Options);
+    METHOD_ADD(patients::create, "", Post, Options);
+    METHOD_ADD(patients::updateOne, "/{1}", Put, Options);
+    // METHOD_ADD(patients::update,"",Put,Options);
+    METHOD_ADD(patients::deleteOne, "/{1}", Delete, Options);
     METHOD_LIST_END
 
-    void getOne(const HttpRequestPtr &req,
-                std::function<void(const HttpResponsePtr &)> &&callback,
-                std::string &&id);
-    void updateOne(const HttpRequestPtr &req,
-                std::function<void(const HttpResponsePtr &)> &&callback,
-                std::string &&id);
-    void deleteOne(const HttpRequestPtr &req,
-                   std::function<void(const HttpResponsePtr &)> &&callback,
-                   std::string &&id);
-    void get(const HttpRequestPtr &req,
-             std::function<void(const HttpResponsePtr &)> &&callback);
-    void create(const HttpRequestPtr &req,
-                std::function<void(const HttpResponsePtr &)> &&callback);
+    void
+    getOne(const HttpRequestPtr &req,
+           std::function<void(const HttpResponsePtr &)> &&callback,
+           std::string &&id);
+    void
+    updateOne(const HttpRequestPtr &req,
+              std::function<void(const HttpResponsePtr &)> &&callback,
+              std::string &&id);
+    void
+    deleteOne(const HttpRequestPtr &req,
+              std::function<void(const HttpResponsePtr &)> &&callback,
+              std::string &&id);
+    void
+    get(const HttpRequestPtr &req,
+        std::function<void(const HttpResponsePtr &)> &&callback);
+    void
+    create(const HttpRequestPtr &req,
+           std::function<void(const HttpResponsePtr &)> &&callback);
+    /* void
+    login(const HttpRequestPtr &req,
+          std::function<void(const HttpResponsePtr &)> &&callback,
+          std::string &&email, const std::string &password); */
+    auto
+    login(HttpRequestPtr const &req,
+          std::function<auto(HttpResponsePtr const &)->void> &&callback,
+          std::string const &email, std::string const &password) -> void;
 
-//    void update(const HttpRequestPtr &req,
-//                std::function<void(const HttpResponsePtr &)> &&callback);
-
-};
-}
+    //    void update(const HttpRequestPtr &req,
+    //                std::function<void(const HttpResponsePtr &)> &&callback);
+  };
+} // namespace api
