@@ -2,8 +2,7 @@
 <template>
     <div class="relative bg-white overflow-hidden">
         <div class="max-w-7xl mx-auto">
-            <div
-                class="
+            <div class="
                     relative
                     z-10
                     pb-8
@@ -12,10 +11,8 @@
                     md:pb-20
                     lg:max-w-2xl lg:w-full lg:pb-28
                     xl:pb-32
-                "
-            >
-                <svg
-                    class="
+                ">
+                <svg class="
                         hidden
                         lg:block
                         absolute
@@ -26,17 +23,11 @@
                         text-white
                         transform
                         translate-x-1/2
-                    "
-                    fill="currentColor"
-                    viewBox="0 0 100 100"
-                    preserveAspectRatio="none"
-                    aria-hidden="true"
-                >
+                    " fill="currentColor" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
                     <polygon points="50,0 100,0 50,100 0,100" />
                 </svg>
-<Header/>
-                <main
-                    class="
+                <Header />
+                <main class="
                         mt-10
                         mx-auto
                         max-w-7xl
@@ -45,51 +36,38 @@
                         md:mt-16
                         lg:mt-20 lg:px-8
                         xl:mt-28
-                    "
-                >
+                    ">
                     <div class="sm:text-center lg:text-left">
-                        <h1
-                            class="
+                        <h1 class="
                                 text-4xl
                                 tracking-tight
                                 font-extrabold
                                 text-gray-900
                                 sm:text-5xl
                                 md:text-6xl
-                            "
-                        >
-                            <span class="block xl:inline"
-                                >Welcome To</span
-                            >
+                            ">
+                            <span class="block xl:inline">Welcome To</span>
                             {{ " " }}
-                            <span class="block text-indigo-600 xl:inline"
-                                >Animosus Clinic</span
-                            >
+                            <span class="block text-indigo-600 xl:inline">Animosus Clinic</span>
                         </h1>
-                        <p
-                            class="
+                        <p class="
                                 mt-3
                                 text-base text-gray-500
                                 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto
                                 md:mt-5 md:text-xl
                                 lg:mx-0
-                            "
-                        >
-                        A Health facility that cares about your health so
-                        can't help but give you our maximum attention in
-                        the shortest posible time
+                            ">
+                            A Health facility that cares about your health so
+                            can't help but give you our maximum attention in
+                            the shortest posible time
                         </p>
-                        <div
-                            class="
+                        <div class="
                                 mt-5
                                 sm:mt-8 sm:flex sm:justify-center
                                 lg:justify-start
-                            "
-                        >
+                            ">
                             <div class="rounded-md shadow">
-                                <a
-                                    href="#"
-                                    class="
+                                <router-link to="/signin" class="
                                         w-full
                                         flex
                                         items-center
@@ -104,15 +82,12 @@
                                         bg-indigo-600
                                         hover:bg-indigo-700
                                         md:py-4 md:text-lg md:px-10
-                                    "
-                                >
+                                    ">
                                     Get started
-                                </a>
+                                </router-link>
                             </div>
                             <div class="mt-3 sm:mt-0 sm:ml-3">
-                                <a
-                                    href="#"
-                                    class="
+                                <a href="#" class="
                                         w-full
                                         flex
                                         items-center
@@ -127,8 +102,7 @@
                                         bg-indigo-100
                                         hover:bg-indigo-200
                                         md:py-4 md:text-lg md:px-10
-                                    "
-                                >
+                                    ">
                                     Live demo
                                 </a>
                             </div>
@@ -138,8 +112,7 @@
             </div>
         </div>
         <div class="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
-            <img
-                class="
+            <img class="
                     h-56
                     w-full
                     object-cover
@@ -148,8 +121,7 @@
                     lg:w-full lg:h-full
                 "
                 src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80"
-                alt=""
-            />
+                alt="" />
         </div>
     </div>
 </template>
