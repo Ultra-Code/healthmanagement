@@ -1,3 +1,8 @@
+<script lang="ts" setup>
+    import {PropType} from 'vue'
+    const props = defineProps({patientLogin: {type: Function as PropType<() => void>}})
+</script>
+
 <template>
     <section class="flex flex-col items-center h-screen bg-blueGray-100 md:flex-row ">
         <div class="relative hidden w-full h-screen bg-blueGray-400 lg:block md:w-1/3 lg:w-2/3">
@@ -54,7 +59,7 @@
                         </div>
                     </button>
                 </div>
-                <form class="mt-6" action="#" method="POST">
+                <form class="mt-6" @submit.prevent="patientLogin">
                     <div>
                         <label class="block text-xs font-medium leading-relaxed tracking-tighter textblueGray-700">Email
                             Address</label>
