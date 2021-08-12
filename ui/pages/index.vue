@@ -1,5 +1,6 @@
 <template>
 <ImageCard/>
+<FeatureSection/>
 <Article/>
 <QuoteBox/>
 <ImageCardAlt/>
