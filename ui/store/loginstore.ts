@@ -1,19 +1,25 @@
 import { defineStore } from 'pinia'
+import { reactive} from 'vue'
 
-interface Login {
-    email: string,
-    password: string
-}
+export const useLoginStore = defineStore("loginStore", () => {
 
-export const useLoginStore = defineStore("login_store", {
-    state: () => ({ email: "", password: "" }),
-    getters: {
-        email: (state) => state.email,
-        password: (state) => state.password
-    },
-    actions: {
-        updateEmail(email: string) { this.$state.email = email },
-        updatePassword(password: string) { this.$state.password = password },
-        loginUser: async (state: Login) => { fetch("0.0.0.0/api/patients/login")}
+    const data = reactive({ email: "", password: "" })
+
+    const loginPatient = () => {
+        const formData = new FormData();
+        formData.set("email", data.email)
+        formData.set("password", data.password)
+        fetch("http://localhost:80/api/patients/login", {
+            method: "POST",
+            mode: "cors",
+            headers: {
+            },
+            body: formData
+        }).then((ServerResponse) => {
+
+        }).catch((Errors) => { throw Errors.body })
     }
+
+    return { data, loginPatient }
+
 })
