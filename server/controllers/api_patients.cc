@@ -64,17 +64,22 @@ namespace api
   auto
   patients::login(
       HttpRequestPtr const &req,
-      std::function<auto(HttpResponsePtr const &)->void> &&callback,
-      std::string const &email, std::string const &password) -> void
+      std::function<auto(HttpResponsePtr const &)->void> &&callback) -> void
   {
-    LOG_DEBUG << "User " << password << " login";
     // Authentication algorithm, read database, verify identity, etc...
     //...
+    auto parser = MultiPartParser();
+    if (parser.parse(req) == 0)
+      {
+        for (auto const &[name, value] : parser.getParameters())
+          {
+            LOG_DEBUG << "Form data's " << name << " has value " << value;
+          }
+      }
     Json::Value ret;
     ret["result"] = "ok";
     ret["token"] = drogon::utils::getUuid();
-    ret["email"] = email;
     auto resp = HttpResponse::newHttpJsonResponse(ret);
     callback(resp);
   }
-} // namespace api
+}
