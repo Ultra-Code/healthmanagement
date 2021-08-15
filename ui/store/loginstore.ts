@@ -1,9 +1,12 @@
 import { defineStore } from 'pinia'
-import { reactive} from 'vue'
+import { reactive } from 'vue'
+import { useRouter } from 'vue-router'
 
 export const useLoginStore = defineStore("loginStore", () => {
 
     const data = reactive({ email: "", password: "" })
+
+    const router = useRouter()
 
     const loginPatient = () => {
         const formData = new FormData();
@@ -16,8 +19,10 @@ export const useLoginStore = defineStore("loginStore", () => {
             },
             body: formData
         }).then((ServerResponse) => {
-
-        }).catch((Errors) => { throw Errors.body })
+            if (ServerResponse.status === 200) {
+                router.push({ name: 'index', path: '/' })
+            }
+        }).catch((Errors) => { throw Errors })
     }
 
     return { data, loginPatient }
