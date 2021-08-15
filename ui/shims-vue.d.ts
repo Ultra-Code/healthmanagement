@@ -4,3 +4,10 @@ declare module "*.vue" {
     const component: DefineComponent<{}, {}, any>
     export default component
 }
+
+// eslint-disable import/no-duplicates
+declare module 'virtual:vite-icons/*' {
+    import { FunctionalComponent, SVGAttributes } from 'vue'
+    const component: FunctionalComponent<SVGAttributes>
+    export default component
+}
