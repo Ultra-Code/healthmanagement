@@ -7,8 +7,8 @@ pkgs.mkShell {
   buildInputs = with pkgs; [
     drogon
     (drogon.override {
-      sqliteSupport = false;
-      postgresSupport = true;
+      sqliteSupport = true;
+      postgresSupport = false;
     })
   ];
 }
