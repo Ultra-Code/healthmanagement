@@ -20,7 +20,7 @@ export const useLoginStore = defineStore("loginStore", () => {
             body: formData
         }).then((ServerResponse) => {
             if (ServerResponse.status === 200) {
-                router.push({ name: 'index', path: '/' })
+                router.push({ name: 'appointment', path: '/appointment' })
             }
         }).catch((Errors) => { throw Errors })
     }
