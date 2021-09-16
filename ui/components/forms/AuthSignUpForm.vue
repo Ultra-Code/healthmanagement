@@ -1,3 +1,9 @@
+<script lang="ts" setup>
+    import {useSignUpStore} from "../../store/signupstore.ts"
+
+    const signupstore = useSignUpStore()
+</script>
+
 <template>
     <section class="flex flex-col items-center h-screen md:flex-row">
         <div class="container mx-auto">
@@ -11,16 +17,14 @@
                                 </div>
                                 <h2
                                     class="text-lg font-bold tracking-tighter text-black uppercase transition duration-500 ease-in-out transform hover:text-lightBlack-500 dark:text-lightBlue-400">
-                                    Wickedblocks </h2>
+                                    Animosus </h2>
                             </a>
                             <h2
                                 class="mt-12 mb-2 text-2xl font-semibold tracking-tighter text-black sm:text-3xl title-font">
-                                Create an account. </h2>
+                                Create an account with Animosus. </h2>
                             <div
                                 class="w-full mt-16 mb-8 text-base leading-relaxed text-blueGray-900 sm:md:w-3/3 lg:text-1xl ">
-                                All you have to do is choose the section you need, remove the one that you do not need
-                                for that project and paste the one you need in that moment. All the section have been
-                                given the same left/right padding. Because consistence is king. </div>
+                                Sign up and get the very best of Health Care Serive right from the comfort of your home</div>
                         </div>
                     </div>
                     <div
@@ -64,17 +68,17 @@
                                     </div>
                                 </button>
                             </div>
-                            <form class="mt-6" action="#" method="POST">
+                            <form class="mt-6" @submit.prevent="signupstore.signUpPatient" >
                                 <div>
-                                    <label class="block text-base font-medium leading-relaxed text-blueGray-700">User
-                                        Name</label>
-                                    <input type="text" name="" id="" placeholder="Your User Name "
-                                        class="w-full px-4 py-2 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-blueGray-100 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ext-black focus:border-blueGray-500">
+                                    <label class="block text-base font-medium leading-relaxed tracking-tighter textblueGray-900">User Name</label>
+                                    <input v-model="signupstore.data.username" type="text" name="" id="" placeholder="Your User Name " class="w-full px-4 py-2 mt-2 text-base transition duration-500 ease-in-out
+                                    transform border-transparent rounded-lg bg-blueGray-100 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current
+                                    ring-offset-2 ext-black focus:border-blueGray-500">
                                 </div>
                                 <div class="mt-4">
                                     <label class="block text-base font-medium leading-relaxed text-blueGray-700">Email
                                         Address</label>
-                                    <input type="email" name="" id="" placeholder="Your Email "
+                                    <input v-model="signupstore.data.email" type="email" name="" id="" placeholder="Your Email "
                                         class="w-full px-4 py-2 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-blueGray-100 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ext-black focus:border-blueGray-500"
                                         autocomplete required>
                                 </div>
@@ -82,7 +86,7 @@
                                     <div class="w-full px-3 mb-6 md:w-1/2 md:mb-0">
                                         <label class="text-base font-medium leading-relaxed text-blueGray-700"
                                             for="password" minlength="6"> Password </label>
-                                        <input
+                                        <input v-model="signupstore.data.password"
                                             class="block w-full px-4 py-2 mt-2 text-base text-black transition duration-500 ease-in-out transform border-transparent rounded-lg bg-blueGray-100 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ext-black focus:border-blueGray-500"
                                             id="password" type="text" placeholder="Your Password">
                                         <p class="mt-1 text-xs italic text-black">Please fill out this field.</p>
@@ -96,8 +100,10 @@
                                     </div>
                                 </div>
                                 <button type="submit"
-                                    class="block w-full px-4 py-3 mt-6 font-semibold text-white transition duration-500 ease-in-out transform rounded-lg bg-gradient-to-r from-black hover:from-black to-black focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 hover:to-black">Log
-                                    In</button>
+                                    class="block w-full px-4 py-3 mt-6 font-semibold text-white transition
+                                    duration-500 ease-in-out transform rounded-lg bg-gradient-to-r from-black
+                                    hover:from-black to-black focus:outline-none focus:shadow-outline
+                                    focus:ring-2 ring-offset-current ring-offset-2 hover:to-black">Sign Up</button>
                             </form>
                             <p class="mt-8 text-center">Already have an account? <a href="#"
                                     class="font-semibold text-black hover:text-black">Sign In</a></p>
