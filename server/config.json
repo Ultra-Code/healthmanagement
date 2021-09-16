@@ -1,5 +1,4 @@
-/* This is a JSON format configuration file
- */
+/* This is a JSON format configuration file*/
 {
     /*
     //ssl:The global SSL settings. "key" and "cert" are the path to the SSL key and certificate. While
@@ -11,7 +10,7 @@
             //["Options", "-SessionTicket"],
             //["Options", "Compression"]
         ]
-    },
+    },*/
     "listeners": [
         {
             //address: Ip address,0.0.0.0 by default
@@ -20,8 +19,8 @@
             "port": 80,
             //https: If true, use https for security,false by default
             "https": false
-        },
-        {
+        }
+        /* {
             "address": "0.0.0.0",
             "port": 443,
             "https": true,
@@ -34,22 +33,22 @@
             "ssl_conf": [
                 //["MinProtocol", "TLSv1.3"]
             ]
-        }
+        } */
     ],
     "db_clients": [
         {
             //name: Name of the client,'default' by default
-            //"name":"",
+            "name": "default",
             //rdbms: Server type, postgresql,mysql or sqlite3, "postgresql" by default
-            "rdbms": "postgresql",
+            "rdbms": "sqlite3",
             //filename: Sqlite3 db file name
-            //"filename":"",
+            "filename": "patients.db",
             //host: Server address,localhost by default
             "host": "127.0.0.1",
             //port: Server port, 5432 by default
             "port": 5432,
             //dbname: Database name
-            "dbname": "test",
+            "dbname": "Patients",
             //user: 'postgres' by default
             "user": "",
             //passwd: '' by default
@@ -68,7 +67,7 @@
             "timeout": -1.0
         }
     ],
-    "redis_clients": [
+    /*"redis_clients": [
         {
             //name: Name of the client,'default' by default
             //"name":"",
@@ -139,7 +138,7 @@
             "cur",
             "xml"
         ],
-        //locations: An array of locations of static files for GET requests.
+       /* //locations: An array of locations of static files for GET requests.
         "locations": [
             {
                 //uri_prefix: The URI prefix of the location prefixed with "/", the default value is "" that disables the location.
@@ -274,9 +273,10 @@
         "client_max_websocket_message_size": "128K",
         //reuse_port: Defaults to false, users can run multiple processes listening on the same port at the same time.
         "reuse_port": false
+    */
     },
     //plugins: Define all plugins running in the application
-    "plugins": [
+    /*"plugins": [
         {
             //name: The class name of the plugin
             //"name": "drogon::plugin::SecureSSLRedirector",
@@ -291,7 +291,7 @@
                 "secure_ssl_host": "localhost:8849"
             }
         }
-    ],
+    ],*/
     //custom_config: custom configuration for users. This object can be get by the app().getCustomConfig() method.
     "custom_config": {}
 }
