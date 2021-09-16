@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-    import {useLoginStore} from "../store/loginstore.ts"
+    import {useLoginStore} from "../store/loginstore"
 
     const loginstore = useLoginStore()
 

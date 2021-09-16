@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-    import {useSignUpStore} from "../../store/signupstore.ts"
+    import {useSignUpStore} from "../../store/signupstore"
 
     const signupstore = useSignUpStore()
 </script>
