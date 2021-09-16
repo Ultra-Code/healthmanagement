@@ -2,7 +2,8 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import pages from 'vite-plugin-pages'
 import layout from 'vite-plugin-vue-layouts'
-import components, { HeadlessUiResolver } from 'vite-plugin-components'
+import components from 'unplugin-vue-components/vite'
+import { HeadlessUiResolver } from 'unplugin-vue-components/resolvers'
 import icons, { ViteIconsResolver } from 'vite-plugin-icons'
 
 // https://vitejs.dev/config/
@@ -11,8 +12,13 @@ export default defineConfig({
     layout({ layoutsDir: "ui/layouts" }), icons(),
     components({
         dirs: "ui/components",
-        customComponentResolvers: [HeadlessUiResolver(), ViteIconsResolver()]
-    })],
+        resolvers: [
+            HeadlessUiResolver(), ViteIconsResolver()],
+        // generate `components.d.ts` global declrations,
+        // also accepts a path for custom filename
+        dts: true,
+    })
+    ],
     server: {
         fs: {
             // Allow serving files from one level up to the project root
