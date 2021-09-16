@@ -8,7 +8,7 @@
 <template>
     <section class="flex flex-col items-center h-screen bg-blueGray-100 md:flex-row ">
         <div class="relative hidden w-full h-screen bg-blueGray-400 lg:block md:w-1/3 lg:w-2/3">
-            <img src="https://images.unsplash.com/photo-1589279003513-467d320f47eb?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
+            <img src="https://images.unsplash.com/photo-1589279003513-467d320f47eb?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&fit=crop&w=1050&q=80"
                 alt="" class="absolute object-cover w-full h-full">
             <div class="relative z-10 m-12 text-left">
                 <a class="flex items-center w-32 mb-4 font-medium text-blueGray-900 title-font md:mb-10">
@@ -63,8 +63,7 @@
                 </div>
                 <form class="mt-6" @submit.prevent="loginstore.loginPatient">
                     <div>
-                        <label class="block text-xs font-medium leading-relaxed tracking-tighter textblueGray-700">Email
-                            Address</label>
+                        <label class="block text-xs font-medium leading-relaxed tracking-tighter textblueGray-700">Email Address</label>
                         <input v-model="loginstore.data.email" type="email" name="" id="" placeholder="Your Email "
                             class="w-full px-4 py-2 mt-2 text-base transition
                             duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-100 ext-black-700 focus:border-blueGray-500 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2"
@@ -81,14 +80,14 @@
                             style="background-image: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAASCAYAAABSO15qAAAAAXNSR0IArs4c6QAAAPhJREFUOBHlU70KgzAQPlMhEvoQTg6OPoOjT+JWOnRqkUKHgqWP4OQbOPokTk6OTkVULNSLVc62oJmbIdzd95NcuGjX2/3YVI/Ts+t0WLE2ut5xsQ0O+90F6UxFjAI8qNcEGONia08e6MNONYwCS7EQAizLmtGUDEzTBNd1fxsYhjEBnHPQNG3KKTYV34F8ec/zwHEciOMYyrIE3/ehKAqIoggo9inGXKmFXwbyBkmSQJqmUNe15IRhCG3byphitm1/eUzDM4qR0TTNjEixGdAnSi3keS5vSk2UDKqqgizLqB4YzvassiKhGtZ/jDMtLOnHz7TE+yf8BaDZXA509yeBAAAAAElFTkSuQmCC&quot;); background-repeat: no-repeat; background-attachment: scroll; background-size: 16px 18px; background-position: 98% 50%;"
                             autocomplete="off" required >
                     </div>
+                    <div v-if="loginstore.loginStatus.allowed === false"
+                    class="flex my-0.5 content-center justify-center text-red-500" > check and provide the correct login information</div>
                     <div class="mt-2 text-right">
                         <a href="#"
-                            class="text-sm font-semibold leading-relaxed text-blueGray-700 hover:text-black-700 focus:text-black-700">Forgot
-                            Password?</a>
+                            class="text-sm font-semibold leading-relaxed text-blueGray-700 hover:text-black-700 focus:text-black-700">Forgot Password?</a>
                     </div>
                     <button type="submit"
-                        class="block w-full px-4 py-3 mt-6 font-semibold text-white transition duration-500 ease-in-out transform bg-black rounded-lg hover:bg-blueGray-800 focus:shadow-outline focus:outline-none focus:ring-2 ring-offset-current ring-offset-2">Log
-                        In</button>
+                        class="block w-full px-4 py-3 mt-6 font-semibold text-white transition duration-500 ease-in-out transform bg-black rounded-lg hover:bg-blueGray-800 focus:shadow-outline focus:outline-none focus:ring-2 ring-offset-current ring-offset-2">Log In</button>
                 </form>
                 <p class="mt-8 text-center">Need an account? <a href="#"
                         class="font-semibold text-black-500 hover:text-black-400">Sign Up</a></p>
