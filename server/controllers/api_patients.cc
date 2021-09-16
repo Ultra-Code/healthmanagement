@@ -7,6 +7,8 @@
 
 #include "api_patients.h"
 #include <string>
+#include <sqlite3.h>
+#include <drogon/orm/DbClient.h>
 
 namespace api
 {
@@ -67,13 +69,94 @@ namespace api
       std::function<auto(HttpResponsePtr const &)->void> &&callback) -> void
   {
     // Authentication algorithm, read database, verify identity, etc...
-    //...
+    auto parser = MultiPartParser();
+    if (parser.parse(req) == 0)
+      {
+        auto const params = parser.getParameters();
+        auto const email = params.at("email");
+        auto const password = params.at("password");
+        auto clientPtr = drogon::app().getDbClient();
+        if (clientPtr)
+          {
+            clientPtr->execSqlAsync(
+                "SELECT * from Patients WHERE Email = :email AND Password = "
+                ":password",
+                [callback](const drogon::orm::Result &r) {
+                  auto ret = Json::Value();
+                  auto constexpr userNotInDb = uint8_t(0);
+                  if (r.size() == userNotInDb)
+                    {
+                      ret["status_code"] = HttpStatusCode::k401Unauthorized;
+                      ret["message"] = "you are unauthorized";
+                      auto resp = HttpResponse::newHttpJsonResponse(ret);
+                      resp->setStatusCode(HttpStatusCode::k401Unauthorized);
+                      callback(resp);
+                    }
+                  else
+                    {
+                      ret["message"] = "ok";
+                      ret["status_code"] = HttpStatusCode::k200OK;
+                      ret["token"] = drogon::utils::getUuid();
+                      auto resp = HttpResponse::newHttpJsonResponse(ret);
+                      resp->setStatusCode(HttpStatusCode::k200OK);
+                      callback(resp);
+                    }
+                },
+                [callback](const drogon::orm::DrogonDbException &e) {
+                  auto ret = Json::Value();
+                  std::cerr << "error:" << e.base().what() << '\n';
+                  ret["status_code"] = HttpStatusCode::k500InternalServerError;
+                  ret["message"] = "An error occured on the server side\n"
+                                   "Contact the administrator to get it fixed";
+                  auto resp = HttpResponse::newHttpJsonResponse(ret);
+                  resp->setStatusCode(HttpStatusCode::k500InternalServerError);
+                  callback(resp);
+                },
+                email, password);
+          }
+        else
+          {
+
+            LOG_DEBUG << "There is an issue with the db connetion\n";
+          }
+      }
+  }
+
+  auto
+  patients::signup(
+      HttpRequestPtr const &req,
+      std::function<auto(HttpResponsePtr const &)->void> &&callback) -> void
+  {
+    // Authentication algorithm, read database, verify identity, etc...
     auto parser = MultiPartParser();
     if (parser.parse(req) == 0)
       {
         for (auto const &[name, value] : parser.getParameters())
           {
             LOG_DEBUG << "Form data's " << name << " has value " << value;
+          }
+        auto const params = parser.getParameters();
+        auto const email = params.at("email");
+        LOG_DEBUG << "Form data's email has value " << email;
+        auto clientPtr = drogon::app().getDbClient();
+        if (clientPtr)
+          {
+            // clang-format off
+            *clientPtr << "SELECT * from Patients WHERE Email = :email"
+                       << email
+                >> [&](const drogon::orm::Result &r) {
+                  std::cout << r.size() << " rows selected!" << std::endl;
+                  int i = 0;
+                  for (auto row : r)
+                    {
+                      std::cout << i++ << ": user name is "
+                                << row["UserName"].as<std::string>() << '\n';
+                    }
+                }
+                >> [](const drogon::orm::DrogonDbException &e) {
+                    std::cerr << "error:" << e.base().what() << std::endl;
+                  };
+            // clang-format on
           }
       }
     Json::Value ret;
@@ -82,4 +165,4 @@ namespace api
     auto resp = HttpResponse::newHttpJsonResponse(ret);
     callback(resp);
   }
-}
+} // namespace api

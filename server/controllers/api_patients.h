@@ -21,6 +21,7 @@ namespace api
     METHOD_LIST_BEGIN
     // use METHOD_ADD to add your custom processing function here;
     METHOD_ADD(patients::login, "/login", Post, Options);
+    METHOD_ADD(patients::signup, "/signup", Post, Options);
     METHOD_ADD(patients::getOne, "/{1}", Get, Options);
     METHOD_ADD(patients::get, "", Get, Options);
     METHOD_ADD(patients::create, "", Post, Options);
@@ -53,6 +54,11 @@ namespace api
           std::string &&email, const std::string &password); */
     auto
     login(HttpRequestPtr const &req,
+          std::function<auto(HttpResponsePtr const &)->void> &&callback)
+        -> void;
+
+    auto
+    signup(HttpRequestPtr const &req,
           std::function<auto(HttpResponsePtr const &)->void> &&callback)
         -> void;
 
