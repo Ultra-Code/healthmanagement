@@ -6,6 +6,7 @@
 <ImageCardAlt/>
 <ImageOverlayCard/>
 <TestimonialCard/>
+<HelpCard/>
 </template>
 
 <script lang="ts">
@@ -16,3 +17,10 @@ export default defineComponent({
     setup() {},
 })
 </script>
+<route>
+    {
+    meta:{
+    layout : "landing-page"
+    }
+    }
+</route>
