@@ -12,7 +12,7 @@
                     <div
                         class="h-64 bg-cover lg:rounded-lg lg:h-full"
                         style="
-                            background-image: url('https://images.unsplash.com/photo-1497493292307-31c376b6e479?ixlib=rb-1.2.1&auto=format&fit=crop&w=1351&q=80');
+                            background-image: url('https://images.unsplash.com/photo-1497493292307-31c376b6e479?ixlib=rb-1.2.1&fit=crop&w=1351&q=80');
                         "
                     ></div>
                 </div>
