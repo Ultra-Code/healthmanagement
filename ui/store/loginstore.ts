@@ -5,6 +5,7 @@ import { useRouter } from 'vue-router'
 export const useLoginStore = defineStore("loginStore", () => {
 
     const data = reactive({ email: "", password: "" })
+    const loginStatus = reactive({ allowed: true })
 
     const router = useRouter()
 
@@ -22,9 +23,12 @@ export const useLoginStore = defineStore("loginStore", () => {
             if (ServerResponse.status === 200) {
                 router.push({ name: 'appointment', path: '/appointment' })
             }
+            else if (ServerResponse.status === 401) {
+                loginStatus.allowed = false;
+            }
         }).catch((Errors) => { throw Errors })
     }
 
-    return { data, loginPatient }
+    return { data, loginPatient, loginStatus }
 
 })
