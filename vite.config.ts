@@ -19,6 +19,15 @@ export default defineConfig({
         dts: true,
     })
     ],
+    resolve: {
+        alias: [
+            { find: '@', replacement: '/ui' },
+            { find: '@pages', replacement: '/ui/pages' },
+            { find: '@components', replacement: '/ui/components' },
+            { find: '@assets', replacement: '/ui/assets' },
+            { find: '@store', replacement: '/ui/store' },
+        ]
+    },
     server: {
         fs: {
             // Allow serving files from one level up to the project root
