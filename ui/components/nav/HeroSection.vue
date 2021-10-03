@@ -1,3 +1,6 @@
+<script lang="ts" setup>
+    import OperationImage from "../../assets/doctors-performing-operation.jpg?inline"
+</script>
 <!-- This example requires Tailwind CSS v2.0+ -->
 <template>
     <div class="relative bg-white overflow-hidden">
@@ -43,7 +46,8 @@
         </div>
         <div class="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
             <img class=" h-56 w-full object-cover sm:h-72 md:h-96 lg:w-full lg:h-full"
-                src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&fit=crop&w=2000&q=80" alt="" />
+                :src="OperationImage" alt="doctors doing an operation"
+                />
         </div>
     </div>
 </template>
