@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+    import ConsortExpertImage from "../../assets/consorting-with-an-expert.jpg"
     import {useLoginStore} from "../../store/loginstore"
 
     const loginstore = useLoginStore()
@@ -8,7 +9,7 @@
 <template>
     <section class="flex flex-col items-center h-screen bg-blueGray-100 md:flex-row ">
         <div class="relative hidden w-full h-screen bg-blueGray-400 lg:block md:w-1/3 lg:w-2/3">
-            <img src="https://images.unsplash.com/photo-1589279003513-467d320f47eb?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&fit=crop&w=1050&q=80"
+            <img :src="ConsortExpertImage"
                 alt="" class="absolute object-cover w-full h-full">
             <div class="relative z-10 m-12 text-left">
                 <a class="flex items-center w-32 mb-4 font-medium text-blueGray-900 title-font md:mb-10">
