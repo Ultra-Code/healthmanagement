@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-    import OperationImage from "../../assets/doctors-performing-operation.jpg?inline"
+import OperationImage from "@assets/doctors-performing-operation.jpg?inline"
 </script>
 <!-- This example requires Tailwind CSS v2.0+ -->
 <template>
