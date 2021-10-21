@@ -4,16 +4,17 @@ import pages from 'vite-plugin-pages'
 import layout from 'vite-plugin-vue-layouts'
 import components from 'unplugin-vue-components/vite'
 import { HeadlessUiResolver } from 'unplugin-vue-components/resolvers'
-import icons, { ViteIconsResolver } from 'vite-plugin-icons'
+import Icons from 'unplugin-icons/vite'
+import IconsResolver from 'unplugin-icons/resolver'
 
 // https://vitejs.dev/config/
 export default defineConfig({
     plugins: [vue(), pages({ pagesDir: "ui/pages" }),
-    layout({ layoutsDir: "ui/layouts" }), icons(),
+    layout({ layoutsDir: "ui/layouts" }), Icons(),
     components({
         dirs: "ui/components",
         resolvers: [
-            HeadlessUiResolver(), ViteIconsResolver()],
+            HeadlessUiResolver(), IconsResolver()],
         // generate `components.d.ts` global declrations,
         // also accepts a path for custom filename
         dts: true,

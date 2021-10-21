@@ -92,10 +92,10 @@
 </template>
 
 <script lang="ts">
-import GlobeAltIcon from 'virtual:vite-icons/heroicons-outline/globe-alt'
-import AnnotationIcon from 'virtual:vite-icons/heroicons-outline/annotation'
-import LightningBoltIcon from 'virtual:vite-icons/heroicons-outline/lightning-bolt'
-import ScaleIcon from 'virtual:vite-icons/heroicons-outline/scale'
+import GlobeAltIcon from '~icons/heroicons-outline/globe-alt'
+import AnnotationIcon from '~icons/heroicons-outline/annotation'
+import LightningBoltIcon from '~icons/heroicons-outline/lightning-bolt'
+import ScaleIcon from '~icons/heroicons-outline/scale'
 
 const features = [
     {

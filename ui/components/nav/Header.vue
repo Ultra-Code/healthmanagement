@@ -225,16 +225,16 @@
 </template>
 
 <script lang="ts">
-import ChartBarIcon from "virtual:vite-icons/heroicons-outline/chart-bar"
-import CursorClickIcon from 'virtual:vite-icons/heroicons-outline/cursor-click'
-import ShieldCheckIcon from 'virtual:vite-icons/heroicons-outline/shield-check'
-import ViewGridIcon from 'virtual:vite-icons/heroicons-outline/view-grid'
-import RefreshIcon from 'virtual:vite-icons/heroicons-outline/refresh'
-import PlayIcon from 'virtual:vite-icons/heroicons-outline/play'
-import PhoneIcon from 'virtual:vite-icons/heroicons-outline/phone'
-import SupportIcon from 'virtual:vite-icons/heroicons-outline/support'
-import BookmarkAltIcon from 'virtual:vite-icons/heroicons-outline/bookmark-alt'
-import CalendarIcon from 'virtual:vite-icons/heroicons-outline/calendar'
+import ChartBarIcon from "~icons/heroicons-outline/chart-bar"
+import CursorClickIcon from '~icons/heroicons-outline/cursor-click'
+import ShieldCheckIcon from '~icons/heroicons-outline/shield-check'
+import ViewGridIcon from '~icons/heroicons-outline/view-grid'
+import RefreshIcon from '~icons/heroicons-outline/refresh'
+import PlayIcon from '~icons/heroicons-outline/play'
+import PhoneIcon from '~icons/heroicons-outline/phone'
+import SupportIcon from '~icons/heroicons-outline/support'
+import BookmarkAltIcon from '~icons/heroicons-outline/bookmark-alt'
+import CalendarIcon from '~icons/heroicons-outline/calendar'
 
 const solutions = [
     {
