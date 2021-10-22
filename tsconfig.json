@@ -25,13 +25,13 @@
                 "ui/store/*"
             ],
             "@pages/*": [
-                "/ui/pages"
+                "ui/pages/*"
             ],
             "@components/*": [
-                "/ui/components/*"
+                "ui/components/*"
             ],
             "@assets/*": [
-                "/ui/assets/*"
+                "ui/assets/*"
             ]
         }
     },
