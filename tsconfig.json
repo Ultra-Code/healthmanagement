@@ -15,12 +15,31 @@
         ],
         "types": [
             "unplugin-icons/types/vue"
-        ]
+        ],
+        "baseUrl": "./",
+        "paths": {
+            "@/*": [
+                "ui/*"
+            ],
+            "@store/*": [
+                "ui/store/*"
+            ],
+            "@pages/*": [
+                "/ui/pages"
+            ],
+            "@components/*": [
+                "/ui/components/*"
+            ],
+            "@assets/*": [
+                "/ui/assets/*"
+            ]
+        }
     },
     "include": [
         "ui/**/*.ts",
         "ui/**/*.d.ts",
         "ui/**/*.tsx",
-        "ui/**/*.vue"
+        "ui/**/*.vue",
+        "components.d.ts"
     ]
 }
