@@ -142,7 +142,7 @@
                                         <div class="mt-5 text-sm">
                                             <a href="#" class=" font-medium text-indigo-600 hover:text-indigo-500 " >
                                             View all posts
-                                                <span aria-hidden="true" &rarr;></span>
+                                                <span aria-hidden="true"></span>
                                             </a>
                                         </div>
                                     </div>
