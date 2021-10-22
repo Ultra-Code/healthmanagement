@@ -8,10 +8,12 @@
 #include "api_patients.h"
 #include <string>
 #include <sqlite3.h>
+#include <cassert>
 #include <drogon/orm/DbClient.h>
 
 namespace api
 {
+  using std::cerr;
 
   void
   patients::getOne(const HttpRequestPtr &req,
@@ -63,6 +65,18 @@ namespace api
   {
   }
 
+  enum parser
+  {
+    noParserError = 0
+  };
+
+  enum db
+  {
+
+    userNotInDb = 0,
+    userInsted = 1,
+  };
+
   auto
   patients::login(
       HttpRequestPtr const &req,
@@ -72,7 +86,7 @@ namespace api
     auto parser = MultiPartParser();
     if (parser.parse(req) == 0)
       {
-        auto const params = parser.getParameters();
+        auto const &params = parser.getParameters();
         auto const email = params.at("email");
         auto const password = params.at("password");
         auto clientPtr = drogon::app().getDbClient();
@@ -81,10 +95,9 @@ namespace api
             clientPtr->execSqlAsync(
                 "SELECT * from Patients WHERE Email = :email AND Password = "
                 ":password",
-                [callback](const drogon::orm::Result &r) {
+                [callback](const drogon::orm::Result &result) {
                   auto ret = Json::Value();
-                  auto constexpr userNotInDb = uint8_t(0);
-                  if (r.size() == userNotInDb)
+                  if (result.size() == db::userNotInDb)
                     {
                       ret["status_code"] = HttpStatusCode::k401Unauthorized;
                       ret["message"] = "you are unauthorized";
@@ -104,7 +117,7 @@ namespace api
                 },
                 [callback](const drogon::orm::DrogonDbException &e) {
                   auto ret = Json::Value();
-                  std::cerr << "error:" << e.base().what() << '\n';
+                  cerr << "error:" << e.base().what() << '\n';
                   ret["status_code"] = HttpStatusCode::k500InternalServerError;
                   ret["message"] = "An error occured on the server side\n"
                                    "Contact the administrator to get it fixed";
@@ -129,40 +142,83 @@ namespace api
   {
     // Authentication algorithm, read database, verify identity, etc...
     auto parser = MultiPartParser();
-    if (parser.parse(req) == 0)
+    if (parser.parse(req) == parser::noParserError)
       {
-        for (auto const &[name, value] : parser.getParameters())
-          {
-            LOG_DEBUG << "Form data's " << name << " has value " << value;
-          }
-        auto const params = parser.getParameters();
+        auto const &params = parser.getParameters();
         auto const email = params.at("email");
-        LOG_DEBUG << "Form data's email has value " << email;
         auto clientPtr = drogon::app().getDbClient();
         if (clientPtr)
           {
-            // clang-format off
             *clientPtr << "SELECT * from Patients WHERE Email = :email"
                        << email
-                >> [&](const drogon::orm::Result &r) {
-                  std::cout << r.size() << " rows selected!" << std::endl;
-                  int i = 0;
-                  for (auto row : r)
+                >>
+                [clientPtr, callback,
+                 parser](bool emailNotInDb, std::string const & /*UserName*/,
+                         std::string const & /*Email*/,
+                         std::string const & /*Password*/) {
+                  if (emailNotInDb)
                     {
-                      std::cout << i++ << ": user name is "
-                                << row["UserName"].as<std::string>() << '\n';
+                      auto const &params = parser.getParameters();
+                      auto const &email = params.at("email");
+                      auto const &username = params.at("username");
+                      auto const &password = params.at("password");
+                      LOG_DEBUG << "Form data's email has value " << email
+                                << " username " << username << " password "
+                                << password;
+                      clientPtr->execSqlAsync(
+                          "INSERT INTO Patients VALUES "
+                          "($username,$email,$password)",
+                          [callback](const drogon::orm::Result &result) {
+                            auto ret = Json::Value();
+                            if (result.affectedRows() == db::userInsted)
+                              {
+                                ret["message"] = "Registed Successfully";
+                                ret["status_code"] = HttpStatusCode::k200OK;
+                                ret["token"] = drogon::utils::getUuid();
+                                auto resp
+                                    = HttpResponse::newHttpJsonResponse(ret);
+                                resp->setStatusCode(HttpStatusCode::k200OK);
+                                callback(resp);
+                              }
+                          },
+                          [callback](const drogon::orm::DrogonDbException &e) {
+                            auto ret = Json::Value();
+                            cerr << "error:" << e.base().what() << '\n';
+                            ret["status_code"]
+                                = HttpStatusCode::k500InternalServerError;
+                            ret["message"]
+                                = "An error occured on the server side"
+                                  "Contact the administrator to get it fixed";
+                            auto resp = HttpResponse::newHttpJsonResponse(ret);
+                            resp->setStatusCode(
+                                HttpStatusCode::k500InternalServerError);
+                            callback(resp);
+                          },
+                          username, email, password);
+                    }
+                  else
+                    {
+                      auto ret = Json::Value();
+                      ret["status_code"] = HttpStatusCode::k401Unauthorized;
+                      ret["message"] = "User Account already exist";
+                      auto resp = HttpResponse::newHttpJsonResponse(ret);
+                      resp->setStatusCode(HttpStatusCode::k401Unauthorized);
+                      callback(resp);
                     }
                 }
-                >> [](const drogon::orm::DrogonDbException &e) {
-                    std::cerr << "error:" << e.base().what() << std::endl;
-                  };
-            // clang-format on
+                >>
+                [](const drogon::orm::DrogonDbException &e) {
+                  cerr << "Sql error:" << e.base().what() << std::endl;
+                  auto const *sql
+                      = dynamic_cast<const drogon::orm::SqlError *>(&e.base());
+                  if (sql != nullptr)
+                    {
+                      cerr << "Query was: " << sql->query() << '\n';
+                      cerr << "Sql state was: " << sql->sqlState() << '\n';
+                      cerr << "Sql error: " << sql->what() << '\n';
+                    }
+                };
           }
       }
-    Json::Value ret;
-    ret["result"] = "ok";
-    ret["token"] = drogon::utils::getUuid();
-    auto resp = HttpResponse::newHttpJsonResponse(ret);
-    callback(resp);
   }
 } // namespace api
