@@ -10,7 +10,7 @@ import IconsResolver from 'unplugin-icons/resolver'
 // https://vitejs.dev/config/
 export default defineConfig({
     plugins: [vue(), pages({ pagesDir: "ui/pages" }),
-    layout({ layoutsDir: "ui/layouts" }), Icons(),
+    layout({ layoutsDir: "ui/layouts" }), Icons({ autoInstall: true }),
     components({
         dirs: "ui/components",
         resolvers: [
